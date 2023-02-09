@@ -14,5 +14,4 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Build with Maven
-        run: mvn install:install-file "-DgroupId=org.mozilla" "-DartifactId=jss" "-Dversion=4.2.5" "-Dpackaging=jar" "-Dfile=C:\Users\AArmijos\workspace\componentes-1.0.4\deps\jss-4.2.5.jar
-
+        run: mvn install:install-file -DgroupId=es.mityc.jumbo.adsi -DartifactId=xmlsec-1.4.2-ADSI -Dversion=1.0 -Dpackaging=jar -Dfile=C:\Users\AArmijos\Desktop\Factura Electronica\MIyT\componentes-1.0.4\core\xmlsec-1.4.2-ADSI-1.0.jar
