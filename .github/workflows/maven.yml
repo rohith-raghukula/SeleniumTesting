@@ -14,4 +14,4 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Build with Maven
-        run: mvn install:install-file -DgroupId=es.mityc.jumbo.adsi -DartifactId=xmlsec-1.4.2-ADSI -Dversion=1.0 -Dpackaging=jar -Dfile=C:\Users\AArmijos\Desktop\Factura Electronica\MIyT\componentes-1.0.4\core\xmlsec-1.4.2-ADSI-1.0.jar
+        run: mvn install:install-file -Dfile=cobra.jar -DgroupId=com.cobra -DartifactId=cobra -Dversion=0.98.4 -Dpackaging=jar -DgeneratePom=true
