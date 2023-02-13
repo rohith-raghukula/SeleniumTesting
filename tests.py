@@ -1,8 +1,5 @@
 from selenium import webdriver
 
-# Create a new Chrome browser instance
-driver = webdriver.Chrome()
-driver.implicitly_wait(10)
 
 # Navigate to the Google homepage
 driver.get("https://www.google.com")
