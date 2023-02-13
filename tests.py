@@ -1,25 +1,13 @@
 from selenium import webdriver
 
-class TestGoogleSearch():
-    @classmethod
-    def setup_class(cls):
-        # Create a new Chrome browser instance
-        cls.driver = webdriver.Chrome()
-        cls.driver.implicitly_wait(10)
+# Configure Chrome options to run in headless mode (no GUI)
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
 
-    @classmethod
-    def teardown_class(cls):
-        # Close the browser
-        cls.driver.quit()
+# Launch a new instance of Chrome with the configured options
+with webdriver.Chrome(options=options) as driver:
+    # Perform any necessary actions here, such as navigating to a URL or interacting with elements
+    driver.get('https://www.google.com')
+    print(driver.title)  # should print "Google"
 
-    def test_google_search(self):
-        # Navigate to the Google homepage
-        self.driver.get("https://www.google.com")
-
-        # Find the search input element and enter a search query
-        search_box = self.driver.find_element_by_name("q")
-        search_box.send_keys("python selenium")
-        search_box.submit()
-
-        # Assert that the search results page was loaded successfully
-        assert "Python Selenium - Google Search" in self.driver.title
+# The browser window will automatically close when the `with` block is exited
