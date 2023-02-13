@@ -1,8 +1,10 @@
 from selenium import webdriver
 
-# Configure browser options to run in headless mode (no GUI)
-options = webdriver.FirefoxOptions()
-options.add_argument('-headless')
+
+
+# Launch a new instance of the browser
+with webdriver.Firefox() as driver:
+    pass  # nothing to do here, the browser will close automatically
 
 # Launch a new instance of the browser with the configured options
 with webdriver.Firefox(options=options) as driver:
