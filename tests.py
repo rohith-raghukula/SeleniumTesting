@@ -1,18 +1,19 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
-# Create a new Chrome browser instance
+# Set up Chrome driver
 driver = webdriver.Chrome()
 
-# Navigate to the Google homepage
+# Open Google.com
 driver.get("https://www.google.com")
 
-# Find the search input field and enter a search query
-search_box = driver.find_element_by_name("q")
-search_box.send_keys("example search query")
-search_box.submit()
+# Find search bar and enter text
+search_bar = driver.find_element_by_name("q")
+search_bar.send_keys("Selenium")
+search_bar.send_keys(Keys.RETURN)
 
-# Verify that the search results page was loaded
-assert "Google Search Results" in driver.title
+# Assert that "Selenium" is in the title of the results page
+assert "Selenium" in driver.title
 
 # Close the browser
 driver.quit()
