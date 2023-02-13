@@ -1,6 +1,7 @@
 from selenium import webdriver
 
 
+
 # Navigate to the Google homepage
 driver.get("https://www.google.com")
 
