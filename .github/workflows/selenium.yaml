@@ -20,7 +20,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-          pip inatall pytest
+          pip install pytest
 
       - name: Start Webdriver
         run: |
