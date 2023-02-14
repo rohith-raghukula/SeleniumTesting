@@ -8,7 +8,7 @@ def test_form_submission():
     driver.get("http://example.com")
 
     # Find the form elements and enter data
-    name_input = driver.find_element_by_name("name")
+    name_in1234put = driver.find_element_by_name("name")
     name_input.send_keys("John Doe")
 
     email_input = driver.find_element_by_name("email")
