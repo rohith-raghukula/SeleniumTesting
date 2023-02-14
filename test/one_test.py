@@ -1,8 +1,12 @@
 from selenium import webdriver
 
-def test_google_search():
-    # Create a Chrome driver instance
-    driver = webdriver.Chrome()
+class TestGoogleSearch():
+    @classmethod
+    def setup_class(cls):
+        # Create a new Chrome browser instance
+        cls.driver = webdriver.Chrome()
+        cls.driver.implicitly_wait(10)
+
 
     # Navigate to Google search page
     driver.get("https://www.google.com/")
