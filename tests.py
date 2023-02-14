@@ -1,13 +1,20 @@
-import requests
-
-
-    
-    assert response.status_code == 200
-    assert 'Welcome' in response.text
-
-def test_profile():
-    profile_url = 'https://profile.w3schools.com/log-in?redirect_url=https%3A%2F%2Fmy-learning.w3schools.com%2F'
-    response = requests.get(profile_url)
-    
-    assert response.status_code == 200
-    assert 'My Profile' in response.text
+from Selenium import webdriver  
+import time  
+from Selenium.webdriver.common.keys import Keys  
+print("sample test case started")  
+driver = webdriver.Chrome()  
+#driver=webdriver.firefox()  
+#driver=webdriver.ie()  
+#maximize the window size  
+driver.maximize_window()  
+#navigate to the url  
+driver.get("https://www.google.com/")  
+#identify the Google search text box and enter the value  
+driver.find_element_by_name("q").send_keys("javatpoint")  
+time.sleep(3)  
+#click on the Google search button  
+driver.find_element_by_name("btnK").send_keys(Keys.ENTER)  
+time.sleep(3)  
+#close the browser  
+driver.close()  
+print("sample test case successfully completed")  
