@@ -34,7 +34,9 @@ jobs:
       - name: Run Tests
         run: |
           # Run the test cases using pytest or any other testing framework
-          pytest -v tests/
+          pytest  tests.py
+          pytest  tests2.py
+          pytest  tests3.py
 
       - name: Publish Test Results
         uses: actions/upload-artifact@v2
