@@ -1,7 +1,5 @@
 from selenium import webdriver
 
-
-
 def test_google_search():
     # Create a Chrome driver instance
     driver = webdriver.Chrome()
