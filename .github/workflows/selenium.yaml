@@ -26,5 +26,5 @@ jobs:
         export PATH=$PATH:/github/workspace
     - name: Run tests
       run: |
-        python tests.py
+        python test/
 
