@@ -39,5 +39,5 @@ jobs:
       - name: Publish Test Results
         uses: actions/upload-artifact@v2
         with:
-          name: Test Results
-          path: test-reports/
+          name: results.txt
+          path: reports/
