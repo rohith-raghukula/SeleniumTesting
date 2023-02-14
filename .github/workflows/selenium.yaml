@@ -26,6 +26,6 @@ jobs:
         export PATH=$PATH:/github/workspace
     - name: Run tests
       run: |
-        python -m unittest discover test/one_test.py
+        python -v test/
 
 
