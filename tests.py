@@ -1,8 +1,6 @@
 from selenium import webdriver
 
-class TestGoogleSearch():
-    @classmethod
-    
+
 
 def test_google_search():
     # Create a Chrome driver instance
