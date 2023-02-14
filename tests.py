@@ -1,25 +1,40 @@
+# import all required frameworks
+import unittest
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
-class TestGoogleSearch():
-    @classmethod
-    def setup_class(cls):
-        # Create a new Chrome browser instance
-        cls.driver = webdriver.Chrome()
-        cls.driver.implicitly_wait(10)
+# inherit TestCase Class and create a new test class
+class PythonOrgSearch(unittest.TestCase):
 
-    @classmethod
-    def teardown_class(cls):
-        # Close the browser
-        cls.driver.quit()
+	# initialization of webdriver
+	def setUp(self):
+		self.driver = webdriver.Firefox()
 
-    def test_google_search(self):
-        # Navigate to the Google homepage
-        self.driver.get("https://www.google.com")
+	# Test case method. It should always start with test_
+	def test_search_in_python_org(self):
+		
+		# get driver
+		driver = self.driver
+		# get python.org using selenium
+		driver.get("http://www.python.org")
 
-        # Find the search input element and enter a search query
-        search_box = self.driver.find_element_by_name("q")
-        search_box.send_keys("python selenium")
-        search_box.submit()
+		# assertion to confirm if title has python keyword in it
+		self.assertIn("Python", driver.title)
 
-        # Assert that the search results page was loaded successfully
-        assert "Python Selenium - Google Search" in self.driver.title
+		# locate element using name
+		elem = driver.find_element_by_name("q")
+
+		# send data
+		elem.send_keys("pycon")
+
+		# receive data
+		elem.send_keys(Keys.RETURN)
+		assert "No results found." not in driver.page_source
+
+	# cleanup method called after every test performed
+	def tearDown(self):
+		self.driver.close()
+
+# execute the script
+if __name__ == "__main__":
+	unittest.main()
