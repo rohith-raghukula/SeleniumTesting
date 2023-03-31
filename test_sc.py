@@ -16,7 +16,7 @@ class TestStezyLogin(unittest.TestCase):
         options = Options()
         options.headless = True
         # Create a new Chrome browser instance with the headless options
-        cls.driver = webdriver.Firefox(options=options)
+        cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver')
         cls.driver.implicitly_wait(10)
 
     @classmethod
