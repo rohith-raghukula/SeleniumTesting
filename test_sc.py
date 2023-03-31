@@ -14,10 +14,9 @@ class TestStezyLogin(unittest.TestCase):
     def setUpClass(cls):
         # Set up Chrome options to run in headless mode
         options = Options()
-        options.add_argument("--headless")
-        options.add_argument("--disable-gpu")
+        options.headless = True
         # Create a new Chrome browser instance with the headless options
-        cls.driver = webdriver.Chrome(options=options)
+        cls.driver = webdriver.Firefox(options=options)
         cls.driver.implicitly_wait(10)
 
     @classmethod
@@ -81,7 +80,9 @@ class TestStezyLogin(unittest.TestCase):
         actions.move_to_element(deploy_button).click().perform()
         # Click the deploy button
         deploy_button.click()
+
         time.sleep(5)
+
         print("hi")
         # Find the blockchain radio button and select it
         blockchain_radio = self.driver.find_element(By.NAME, "blockchains")
