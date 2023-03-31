@@ -1,16 +1,10 @@
 import unittest
-
 from selenium import webdriver
-
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
 from selenium.webdriver.common.action_chains import ActionChains
-
-
 import time
-
 from selenium.webdriver.support.wait import WebDriverWait
 
 
@@ -58,23 +52,29 @@ class TestStezyLogin(unittest.TestCase):
         smartcontract_link = self.driver.find_element(By.XPATH, '//span[text()="SmartContract"]')
         smartcontract_link.click()
         time.sleep(5)
-        SC_scratch_link = self.driver.find_element(By.XPATH, '//p[text()="Smart Contract From Scratch"]')
-        SC_scratch_link.click()
+        SC_asset_link = self.driver.find_element(By.XPATH, '//p[text()="Design Smart Contract Asset"]')
+        SC_asset_link.click()
         time.sleep(5)
-        formtitle_input = self.driver.find_element(By.NAME, "formtitle")
-        formtitle_input.send_keys("test1")
+        variable_input = self.driver.find_element(By.NAME, "form-name")
+        variable_input.send_keys("sctest")
+        time.sleep(5)
+        add_button = self.driver.find_element(By.XPATH, "//button[text()='Add']")
+        add_button.click()
+        time.sleep(5)
+        variable_input = self.driver.find_element(By.NAME, "form-name")
+        variable_input.send_keys("test1")
+        time.sleep(2)
+        # Find the dropdown menu and select the "Integer" option
+        integer_option = self.driver.find_element(By.XPATH, "//option[@value='integer']")
+        integer_option.click()
         time.sleep(5)
         # Add text input field
-        text_input_field = self.driver.find_element(By.XPATH, "//li[@data-type='text']")
-        text_input_field.click()
+        text_input_field = self.driver.find_element(By.NAME, "smart-contract-name")
+        text_input_field.send_keys("test-sc")
         time.sleep(5)
-
-        time.sleep(2)
-        # Add number input field
-        number_input_field = self.driver.find_element(By.XPATH, "//li[@data-type='number']")
-        number_input_field.click()
-
-        time.sleep(10)
+        add_button = self.driver.find_element(By.XPATH, "//button[text()='Add']")
+        add_button.click()
+        time.sleep(5)
         wait = WebDriverWait(driver, 10)
         deploy_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'Deploy')]")))
         actions = ActionChains(driver)
