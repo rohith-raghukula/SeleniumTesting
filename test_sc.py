@@ -6,6 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
 
 
 class TestStezyLogin(unittest.TestCase):
@@ -15,6 +17,7 @@ class TestStezyLogin(unittest.TestCase):
         # Set up Chrome options to run in headless mode
         options = Options()
         options.headless = True
+        service = Service('path/to/geckodriver')
         # Create a new Chrome browser instance with the headless options
         cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver')
         cls.driver.implicitly_wait(10)
