@@ -6,17 +6,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import time
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver import FirefoxOptions, Firefox
 
 class TestStezyLogin(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
         # Set up Firefox options to run in headless mode
-        options = Options()
-        options.headless = True
-        # Create a new Firefox browser instance with the headless options
-        cls.driver = webdriver.Firefox(options=options)
-        cls.driver.implicitly_wait(10)
+        options = FirefoxOptions()
+        options.add_argument('--headless')
+        cls.driver = Firefox(options=options)
 
     @classmethod
     def tearDownClass(cls):
