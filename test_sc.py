@@ -6,17 +6,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import time
 from selenium.webdriver.support.wait import WebDriverWait
+import self
 
 class TestStezyLogin(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Set up Chrome options to run in headless mode
+        # Set up Firefox options to run in headless mode
         options = Options()
-        options.add_argument("--headless")
-        options.add_argument("--disable-gpu")
-        # Create a new Chrome browser instance with the headless options
-        cls.driver = webdriver.Chrome(options=options)
+        options.headless = True
+        # Create a new Firefox browser instance with the headless options
+        cls.driver = webdriver.Firefox(options=options)
         cls.driver.implicitly_wait(10)
 
     @classmethod
