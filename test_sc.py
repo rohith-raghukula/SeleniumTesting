@@ -1,14 +1,11 @@
 import unittest
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
 import time
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.options import Options
-
 
 class TestStezyLogin(unittest.TestCase):
 
@@ -16,10 +13,10 @@ class TestStezyLogin(unittest.TestCase):
     def setUpClass(cls):
         # Set up Chrome options to run in headless mode
         options = Options()
-        options.headless = True
-        service = Service('path/to/geckodriver')
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
         # Create a new Chrome browser instance with the headless options
-        cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver')
+        cls.driver = webdriver.Chrome(options=options)
         cls.driver.implicitly_wait(10)
 
     @classmethod
@@ -45,48 +42,36 @@ class TestStezyLogin(unittest.TestCase):
         login_button.click()
 
 
-
+        print("hi")
         time.sleep(10)
         # Check if login was successful
         self.assertIn("dashboard", self.driver.current_url, "Login failed")
 
-        time.sleep(5)
         smartcontract_link = self.driver.find_element(By.XPATH, '//span[text()="SmartContract"]')
         smartcontract_link.click()
         time.sleep(5)
-        SC_asset_link = self.driver.find_element(By.XPATH, '//p[text()="Design Smart Contract Asset"]')
+        SC_asset_link = self.driver.find_element(By.XPATH, '//p[text()="Code Builder Smart Contract"]')
         SC_asset_link.click()
         time.sleep(5)
-        variable_input = self.driver.find_element(By.NAME, "form-name")
-        variable_input.send_keys("sctest")
-        time.sleep(5)
-        add_button = self.driver.find_element(By.XPATH, "//button[text()='Add']")
-        add_button.click()
-        time.sleep(5)
-        variable_input = self.driver.find_element(By.NAME, "form-name")
-        variable_input.send_keys("test1")
-        time.sleep(2)
-        # Find the dropdown menu and select the "Integer" option
-        integer_option = self.driver.find_element(By.XPATH, "//option[@value='integer']")
-        integer_option.click()
-        time.sleep(5)
-        # Add text input field
-        text_input_field = self.driver.find_element(By.NAME, "smart-contract-name")
-        text_input_field.send_keys("test-sc")
-        time.sleep(5)
-        add_button = self.driver.find_element(By.XPATH, "//button[text()='Add']")
-        add_button.click()
-        time.sleep(5)
-        wait = WebDriverWait(driver, 10)
-        deploy_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'Deploy')]")))
-        actions = ActionChains(driver)
-        actions.move_to_element(deploy_button).click().perform()
-        # Click the deploy button
-        deploy_button.click()
+        supplychain_button = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//button[contains(.,"Supplychain")]'))
+        )
 
+        # Double-click the button
+        action_chains = ActionChains(self.driver)
+        action_chains.double_click(supplychain_button).perform()
+        track_and_trace_link = self.driver.find_element(By.PARTIAL_LINK_TEXT, "Track and Trace")
+        track_and_trace_link.click()
+        time.sleep(10)
+        text_field = self.driver.find_element(By.ID, "smart-contract-name")
+        text_field.send_keys("Test Smart Contract")
         time.sleep(5)
 
-        print("hi")
+        wait = WebDriverWait(self.driver, 10)
+        deploy_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Deploy']")))
+        self.driver.execute_script("arguments[0].click();", deploy_button)
+        time.sleep(5)
+
         # Find the blockchain radio button and select it
         blockchain_radio = self.driver.find_element(By.NAME, "blockchains")
         blockchain_radio.click()
