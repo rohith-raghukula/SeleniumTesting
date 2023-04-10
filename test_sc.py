@@ -1,9 +1,5 @@
 import unittest
-from selenium import webdriver
-from selenium.webdriver import ActionChains
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver import FirefoxOptions, Firefox
@@ -48,26 +44,44 @@ class TestStezyLogin(unittest.TestCase):
         smartcontract_link = self.driver.find_element(By.XPATH, '//span[text()="SmartContract"]')
         smartcontract_link.click()
         time.sleep(5)
-        SC_asset_link = self.driver.find_element(By.XPATH, '//p[text()="Code Builder Smart Contract"]')
-        SC_asset_link.click()
+        nft_builder_tile = self.driver.find_element(By.XPATH,"//*[contains(text(), 'NFT Builder')]")
+        nft_builder_tile.click()
         time.sleep(5)
-        supplychain_button = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '//button[contains(.,"Supplychain")]'))
-        )
-
-        # Double-click the button
-        action_chains = ActionChains(self.driver)
-        action_chains.double_click(supplychain_button).perform()
-        track_and_trace_link = self.driver.find_element(By.PARTIAL_LINK_TEXT, "Track and Trace")
-        track_and_trace_link.click()
-        time.sleep(10)
-        text_field = self.driver.find_element(By.ID, "smart-contract-name")
-        text_field.send_keys("Test Smart Contract")
+        # find the element with the text "ERC-721" using XPath
+        erc_element = driver.find_element(By.XPATH,"//div[contains(@class, 'cardTitle') and contains(text(), 'ERC-721')]")
+        erc_element.click()
         time.sleep(5)
+        next_button = self.driver.find_element(By.ID,"proceedBtn")
+        next_button.click()
+        time.sleep(5)
+        add_element = self.driver.find_element(By.XPATH,"//span[contains(@class, 'material-icons') and contains(text(), 'add')]")
+        add_element.click()
+        time.sleep(5)
+        #upload_element = self.driver.find_element(By.ID,"uploadTitleWrapper")
+        #upload_element.click()
+        wait = WebDriverWait(driver, 10)
+        nft_type_element = self.driver.find_element(By.XPATH, "//div[@class='mat-step-text-label ng-star-inserted'][text()='Choose NFT Type']")
+        nft_type_element.click()
 
-        wait = WebDriverWait(self.driver, 10)
-        deploy_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Deploy']")))
-        self.driver.execute_script("arguments[0].click();", deploy_button)
+        time.sleep(5)
+        erc_element = self.driver.find_element(By.CLASS_NAME, "protocolCardContent")
+        erc_element.click()
+        time.sleep(5)
+        name_element = self.driver.find_element(By.XPATH, "//div[@class='mat-step-text-label ng-star-inserted'][text()='Enter collection name']")
+        name_element.click()
+        input_element = self.driver.find_element(By.ID,"mat-input-0")
+        input_element.send_keys("test")
+        symbol_element = self.driver.find_element(By.ID, 'cdk-step-label-0-3')
+        symbol_element.click()
+        symbol_input = self.driver.find_element(By.ID, "mat-input-1")
+        symbol_input.send_keys("test")
+        time.sleep(5)
+        description_element = self.driver.find_element(By.ID, "cdk-step-label-0-4")
+        description_element.click()
+        description_element_input = self.driver.find_element(By.ID, "mat-input-2")
+        description_element_input.send_keys("test")
+        create_button = self.driver.find_element(By.ID, "createBtn")
+        create_button.click()
         time.sleep(5)
 
         # Find the blockchain radio button and select it
