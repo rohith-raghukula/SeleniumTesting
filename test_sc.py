@@ -1,17 +1,28 @@
 import unittest
+import self
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+
 import time
+
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver import FirefoxOptions, Firefox
+
 
 class TestStezyLogin(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Set up Firefox options to run in headless mode
-        options = FirefoxOptions()
-        options.add_argument('--headless')
-        cls.driver = Firefox(options=options)
+        # Set up Chrome options to run in headless mode
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        # Create a new Chrome browser instance with the headless options
+        cls.driver = webdriver.Chrome(options=options)
+        cls.driver.implicitly_wait(10)
 
     @classmethod
     def tearDownClass(cls):
@@ -41,67 +52,76 @@ class TestStezyLogin(unittest.TestCase):
         # Check if login was successful
         self.assertIn("dashboard", self.driver.current_url, "Login failed")
 
-        smartcontract_link = self.driver.find_element(By.XPATH, '//span[text()="SmartContract"]')
-        smartcontract_link.click()
+        # Find the Blockchain element and click it
+        blockchain_button = self.driver.find_element(By.XPATH, "//span[@class='nav-label' and text()='Blockchain']")
+        blockchain_button.click()
         time.sleep(5)
-        nft_builder_tile = self.driver.find_element(By.XPATH,"//*[contains(text(), 'NFT Builder')]")
-        nft_builder_tile.click()
+
+        create_private_element = self.driver.find_element(By.XPATH, '//span[@class="nav-label" and text()="Private"]')
+        create_private_element.click()
         time.sleep(5)
-        # find the element with the text "ERC-721" using XPath
-        erc_element = driver.find_element(By.XPATH,"//div[contains(@class, 'cardTitle') and contains(text(), 'ERC-721')]")
-        erc_element.click()
+
+        consotrium_name_input = self.driver.find_element(By.NAME, "name")
+        consotrium_name_input.send_keys("eth rohith test")
         time.sleep(5)
-        next_button = self.driver.find_element(By.ID,"proceedBtn")
+        description_textarea = self.driver.find_element(By.TAG_NAME, "textarea")
+        description_textarea.send_keys("hi")
+        time.sleep(5)
+        time.sleep(5)
+        next_button = self.driver.find_element(By.XPATH, "//button[@class='ml-auto' and text()='Next']")
         next_button.click()
         time.sleep(5)
-        add_element = self.driver.find_element(By.XPATH,"//span[contains(@class, 'material-icons') and contains(text(), 'add')]")
-        add_element.click()
+        # select blockchain and blockchain type
+        ethereum_button = self.driver.find_element(By.XPATH,
+                                                   "//div[@class='card ng-star-inserted']//img[contains(@src, 'ethereum.png')]")
+        ethereum_button.click()
         time.sleep(5)
-        #upload_element = self.driver.find_element(By.ID,"uploadTitleWrapper")
-        #upload_element.click()
-        wait = WebDriverWait(driver, 10)
-        nft_type_element = self.driver.find_element(By.XPATH, "//div[@class='mat-step-text-label ng-star-inserted'][text()='Choose NFT Type']")
-        nft_type_element.click()
-
+        poa_button = self.driver.find_element(By.XPATH,
+                                              "//img[@class='ng-star-inserted' and contains(@src, 'poa.jpeg')]")
+        poa_button.click()
         time.sleep(5)
-        erc_element = self.driver.find_element(By.CLASS_NAME, "protocolCardContent")
-        erc_element.click()
-        time.sleep(5)
-        name_element = self.driver.find_element(By.XPATH, "//div[@class='mat-step-text-label ng-star-inserted'][text()='Enter collection name']")
-        name_element.click()
-        input_element = self.driver.find_element(By.ID,"mat-input-0")
-        input_element.send_keys("test")
-        symbol_element = self.driver.find_element(By.ID, 'cdk-step-label-0-3')
-        symbol_element.click()
-        symbol_input = self.driver.find_element(By.ID, "mat-input-1")
-        symbol_input.send_keys("test")
-        time.sleep(5)
-        description_element = self.driver.find_element(By.ID, "cdk-step-label-0-4")
-        description_element.click()
-        description_element_input = self.driver.find_element(By.ID, "mat-input-2")
-        description_element_input.send_keys("test")
-        create_button = self.driver.find_element(By.ID, "createBtn")
-        create_button.click()
-        time.sleep(5)
-
-        # Find the blockchain radio button and select it
-        blockchain_radio = self.driver.find_element(By.NAME, "blockchains")
-        blockchain_radio.click()
-        time.sleep(5)
-        # Find the Next button and click it
         next_button = self.driver.find_element(By.XPATH, "//button[text()='Next']")
-        next_button.click()
+        driver.execute_script("arguments[0].click();", next_button)
         time.sleep(5)
-        # Find the radio button element for nodes
-        nodes_radio_button = self.driver.find_element(By.NAME, "nodes")
-        # Verify that the radio button is displayed on the page
-        self.assertTrue(nodes_radio_button.is_displayed())
-        # Click the radio button
-        nodes_radio_button.click()
+        SZM_element = self.driver.find_element(By.XPATH, '//img[@src="https://cdn.stezy.io/assets/images/cloud/stezy.jpeg"]')
+        SZM_element.click()
         time.sleep(5)
-        deploy_button = self.driver.find_element(By.XPATH, "//button[text()='Deploy']")
-        deploy_button.click()
+        next_button = self.driver.find_element(By.XPATH, "//button[text()='Next']")
+        driver.execute_script("arguments[0].click();", next_button)
+        name_element = self.driver.find_element(By.NAME, "name")
+        name_element.send_keys("node1")
+        description_element = self.driver.find_element(By.XPATH,'//textarea[@placeholder="Example: Node description"]')
+        description_element.send_keys("node des")
+
+        dropdown_element = self.driver.find_element(By.NAME,'region')
+        dropdown_element.click()
+
+
+        # Wait for the dropdown options to be visible
+        wait = WebDriverWait(self.driver, 10)
+        dropdown_options = wait.until(
+            EC.visibility_of_all_elements_located((By.XPATH, "//select[@name='region']/option")))
+
+        # Loop through the dropdown options and select the desired option by its text
+        for option in dropdown_options:
+            if option.text == 'East Asia':
+                option.click()
+                break
+
+        time.sleep(10)
+        wait = WebDriverWait(self.driver, 10)
+        instance_options = wait.until(
+            EC.visibility_of_all_elements_located((By.XPATH, "//select[@name='type']/option")))
+        # Click on the option element
+        # Loop through the dropdown options and select the desired option by its text
+        for option in instance_options:
+            if option.text == 'Standard_A2_v2 (2 VCPUs, 4 GB)':
+                option.click()
+                break
+
         time.sleep(5)
 
-if __name__ == '__main__':
-    unittest.main()
+        save_button = driver.find_element(By.CLASS_NAME, "ml-auto")
+        save_button.click()
+        time.sleep(5)
+
