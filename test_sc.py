@@ -9,16 +9,16 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 
-
 class TestStezyLogin(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
         # Set up Chrome options to run in headless mode
         options = Options()
+
         options.headless = True
         service = Service('path/to/geckodriver')
-        # Create a new Chrome browser instance with the headless options
+        # Create a new firefox browser instance with the headless options
         cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver')
         cls.driver.implicitly_wait(10)
 
@@ -86,6 +86,25 @@ class TestStezyLogin(unittest.TestCase):
 
         time.sleep(5)
 
-     
+        print("hi")
+        # Find the blockchain radio button and select it
+        #blockchain_radio = self.driver.find_element(By.NAME, "blockchains")
+        #blockchain_radio.click()
+        #time.sleep(5)
+        # Find the Next button and click it
+        #next_button = self.driver.find_element(By.XPATH, "//button[text()='Next']")
+        #next_button.click()
+        #time.sleep(5)
+        # Find the radio button element for nodes
+        #nodes_radio_button = self.driver.find_element(By.NAME, "nodes")
+        # Verify that the radio button is displayed on the page
+        #self.assertTrue(nodes_radio_button.is_displayed())
+        # Click the radio button
+        #nodes_radio_button.click()
+        #time.sleep(5)
+        #deploy_button = self.driver.find_element(By.XPATH, "//button[text()='Deploy']")
+        #deploy_button.click()
+        #time.sleep(5)
+
 if __name__ == '__main__':
     unittest.main()
