@@ -7,25 +7,29 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 class TestStezyLogin(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Set up Chrome options to run in headless mode
-        options = Options()
+        # Set up Firefox options to run in headless mode
+        options = FirefoxOptions()
 
         options.headless = True
         service = Service('path/to/geckodriver')
-        # Create a new firefox browser instance with the headless options
-        cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver')
+        # Create a new Firefox browser instance with the headless options
+        cls.driver = webdriver.Firefox(options=options, service=service)
         cls.driver.implicitly_wait(10)
 
     @classmethod
     def tearDownClass(cls):
         # Close the browser
         cls.driver.quit()
+
+    # Rest of your test methods...
+
+
 
     def test_stezy_login(self):
 
