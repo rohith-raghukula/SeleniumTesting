@@ -7,19 +7,19 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 class TestStezyLogin(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Set up Chrome options to run in headless mode
-        options = Options()
+        # Set up Firefox options to run in headless mode
+        options = FirefoxOptions()
 
         options.headless = True
         service = Service('path/to/geckodriver')
-        # Create a new firefox browser instance with the headless options
-        cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver')
+        # Create a new Firefox browser instance with the headless options
+        cls.driver = webdriver.Firefox(options=options, service=service)
         cls.driver.implicitly_wait(10)
 
     @classmethod
@@ -68,7 +68,7 @@ class TestStezyLogin(unittest.TestCase):
         deploy_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'Deploy')]")))
         actions = ActionChains(driver)
         actions.move_to_element(deploy_button).click().perform()
-        # Click the deploy button
+         #Click the deploy button
         deploy_button.click()
         time.sleep(5)
 
