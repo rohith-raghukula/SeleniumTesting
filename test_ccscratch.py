@@ -9,6 +9,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 
+
 class TestStezyLogin(unittest.TestCase):
 
     @classmethod
@@ -16,10 +17,11 @@ class TestStezyLogin(unittest.TestCase):
         # Set up Chrome options to run in headless mode
         options = Options()
 
-        options.headless = True
+        options.add_argument('-headless')
         service = Service('path/to/geckodriver')
         # Create a new firefox browser instance with the headless options
-        cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver')
+        capabilities = {'loggingPrefs': {'browser': 'ALL'}}
+        cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver', service_log_path='geckodriver.log', desired_capabilities=capabilities)
         cls.driver.implicitly_wait(10)
 
     @classmethod
@@ -72,5 +74,7 @@ class TestStezyLogin(unittest.TestCase):
         deploy_button.click()
         time.sleep(5)
 
+        
     if __name__ == '__main__':
         unittest.main()
+        
