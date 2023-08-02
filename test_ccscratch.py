@@ -21,6 +21,7 @@ class TestStezyLogin(unittest.TestCase):
         service = Service('path/to/geckodriver')
         # Create a new firefox browser instance with the headless options
         capabilities = {'loggingPrefs': {'browser': 'ALL'}}
+        service = Service('path/to/geckodriver')
         cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver', service_log_path='geckodriver.log', desired_capabilities=capabilities)
         cls.driver.implicitly_wait(10)
 
