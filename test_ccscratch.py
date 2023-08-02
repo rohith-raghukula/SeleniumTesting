@@ -39,7 +39,7 @@ class TestStezyLogin(unittest.TestCase):
         email_input.send_keys("rohit@stezy.io")
         password_input = driver.find_element(By.NAME, "Password")
         password_input.send_keys("Stezy@123")
-      # Find the login button and click it
+      #Find the login button and click it
         login_button = driver.find_element(By.NAME, "LogIn")
         login_button.click()
         time.sleep(10)
@@ -74,7 +74,6 @@ class TestStezyLogin(unittest.TestCase):
         deploy_button.click()
         time.sleep(5)
 
-        
+
     if __name__ == '__main__':
         unittest.main()
-        
