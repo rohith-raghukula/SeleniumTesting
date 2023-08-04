@@ -15,12 +15,10 @@ class TestStezyLogin(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Set up Chrome options to run in headless mode
-        options = Options()
-        options.headless = True
+        firefox_options = FirefoxOptions()
+        firefox_options.headless = True
         service = Service('path/to/geckodriver')
-        # Create a new Chrome browser instance with the headless options
-        cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver')
+        cls.driver = webdriver.Firefox(options=firefox_options, service=service)
         cls.driver.implicitly_wait(10)
     @classmethod
     def tearDownClass(cls):
