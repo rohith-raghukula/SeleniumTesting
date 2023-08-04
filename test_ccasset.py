@@ -1,4 +1,5 @@
 import unittest
+import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -17,6 +18,7 @@ class TestStezyLogin(unittest.TestCase):
     def setUpClass(cls):
         firefox_options = FirefoxOptions()
         firefox_options.headless = True
+        geckodriver_path = os.path.join(os.path.dirname(__file__), 'geckodriver')
         service = Service('path/to/geckodriver')
         cls.driver = webdriver.Firefox(options=firefox_options, service=service)
         cls.driver.implicitly_wait(10)
