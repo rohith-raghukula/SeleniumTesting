@@ -7,7 +7,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+import tracemalloc  # Import tracemalloc for enabling object allocation traceback
 
 class TestStezyLogin(unittest.TestCase):
 
@@ -16,18 +17,15 @@ class TestStezyLogin(unittest.TestCase):
         # Set up Chrome options to run in headless mode
         options = Options()
         options.headless = True
-        service = Service('path/to/geckodriver')
-        # Create a new Chrome browser instance with the headless options
         cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver')
         cls.driver.implicitly_wait(10)
+
     @classmethod
     def tearDownClass(cls):
         # Close the browser
         cls.driver.quit()
 
-    def test_stezy_login(self):
-
-        # Navigate to the app.stezy.io homepage
+    def test_stezy_login(self):        # Navigate to the app.stezy.io homepage
         driver = self.driver
         driver.get("https://app.stezy.io")
 
@@ -85,4 +83,6 @@ class TestStezyLogin(unittest.TestCase):
         time.sleep(5)
 
 if __name__ == '__main__':
+    # Enable tracemalloc before running the tests
+    tracemalloc.start()
     unittest.main()
