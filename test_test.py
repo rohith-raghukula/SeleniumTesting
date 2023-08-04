@@ -1,8 +1,18 @@
 import unittest
+import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 import time
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+import tracemalloc
+
+
 class TestStezyLogin(unittest.TestCase):
 
     @classmethod
@@ -19,48 +29,3 @@ class TestStezyLogin(unittest.TestCase):
     def tearDownClass(cls):
         # Close the browser
         cls.driver.quit()
-
-    def test_stezy_login(self):
-        # Navigate to the app.stezy.io homepage
-        self.driver.get("https://app.stezy.io")
-
-        # Find the email and password input fields and enter login credentials
-        email_input = self.driver.find_element(By.NAME, "username")
-        email_input.send_keys("rohit@stezy.io")
-
-        password_input = self.driver.find_element(By.NAME, "Password")
-        password_input.send_keys("Stezy@123")
-
-        # Find the login button and click it
-        login_button = self.driver.find_element(By.NAME, "LogIn")
-        login_button.click()
-
-        time.sleep(10)
-
-        # Check if login was successful
-        self.assertIn("dashboard", self.driver.current_url, "Login failed")
-
-        user_element = self.driver.find_element(By.XPATH, "//span[contains(text(),'User')]")
-        user_element.click()
-        time.sleep(5)
-        create_user_button = self.driver.find_element(By.XPATH, "//button[contains(text(),'+ Create User')]")
-        create_user_button.click()
-        time.sleep(5)
-        email_input = self.driver.find_element(By.NAME, "email")
-        email_input.send_keys("rohith5@mailinator.com")
-        time.sleep(5)
-        # Find the radio button for admin role
-        admin_radio_button = self.driver.find_element(By.XPATH, "//input[@name='isAdmin' and @value='admin']")
-        # Click the radio button
-        admin_radio_button.click()
-        time.sleep(5)
-        Text_label = self.driver.find_element(By.CSS_SELECTOR,
-                                         "label[for='Do you want admin to delete blockchain & nodes?']")
-        Text_label.click()
-        add_user_button = self.driver.find_element(By.NAME, "LogIn")
-        add_user_button.click()
-        print("hola")
-        time.sleep(10)
-        close_button = self.driver.find_element(By.XPATH, "//button[text()='Close']")
-        close_button.click()
-        time.sleep(10)
