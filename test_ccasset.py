@@ -8,6 +8,8 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+import tracemalloc
 
 class TestStezyLogin(unittest.TestCase):
 
@@ -85,4 +87,5 @@ class TestStezyLogin(unittest.TestCase):
         time.sleep(5)
 
 if __name__ == '__main__':
+    tracemalloc.start()
     unittest.main()
