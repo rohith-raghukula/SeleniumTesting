@@ -18,7 +18,7 @@ class TestStezyLogin(unittest.TestCase):
     def setUpClass(cls):
         # Set up Chrome options to run in headless mode
         options = Options()
-        #options.add_argument("--headless")
+        options.add_argument("--headless")
         options.add_argument("--disable-gpu")
         # Create a new Chrome browser instance with the headless options
         cls.driver = webdriver.Chrome(options=options)
