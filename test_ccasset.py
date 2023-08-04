@@ -17,8 +17,9 @@ class TestStezyLogin(unittest.TestCase):
         # Set up Chrome options to run in headless mode
         options = Options()
         options.headless = True
-        cls.driver = webdriver.Firefox(options=options, executable_path='geckodriver',
-                                       service_log_path='geckodriver.log')  # Specify service_log_path
+        firefox_options = FirefoxOptions()
+        firefox_options.log.level = "trace"  # Set the desired log level (e.g., "trace", "debug", "info", "warn", "error")
+        cls.driver = webdriver.Firefox(options=firefox_options, executable_path='geckodriver')
 
     @classmethod
     def tearDownClass(cls):
