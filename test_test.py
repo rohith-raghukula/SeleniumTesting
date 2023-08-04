@@ -4,9 +4,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
 from selenium.webdriver.firefox.options import Options
-
-
-
 class TestStezyLogin(unittest.TestCase):
 
     @classmethod
