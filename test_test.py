@@ -6,6 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
+
 
 class TestStezyLogin(unittest.TestCase):
 
